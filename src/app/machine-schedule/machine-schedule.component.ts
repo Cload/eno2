@@ -1,15 +1,46 @@
 import { Component, OnInit } from '@angular/core';
+import { IMachineScheduleInfo } from '../models/IMachineScheduleInfo';
+import { Linea } from '../../types/Linea'
+import { TipoAttivita} from '../../types/TipoAttivita'
+import { IMachineScheduleService } from '../services/imachine-schedule/imachine-schedule.service';
+import { filterUnique } from '../../Utils/ArrayUtils'
+import { tipiAttivita } from '../../Utils/LineeUtils'
 
 @Component({
-  selector: 'app-machine-schedule',
+  selector: 'machine-schedule',
   templateUrl: './machine-schedule.component.html',
   styleUrls: ['./machine-schedule.component.scss']
 })
 export class MachineScheduleComponent implements OnInit {
 
-  constructor() { }
+  constructor(private scheduleService: IMachineScheduleService) { }
+  private machineInfo : IMachineScheduleInfo[];
+  public isLoading : boolean = true;
+  public currentDate : Date = new Date(2020, 4, 18, 0, 0, 0);
+
+  public get linee() : Linea[] {
+    if (!this.machineInfo){
+      return undefined;
+    }
+    var linee = this.machineInfo.map(i => i.Linea)
+    linee = linee.filter(filterUnique);
+    return linee.map(l => ({ id: l, text: `Linea ${l}` }));
+  }
+
+  public get tipiAttivita() : TipoAttivita[] {
+    return tipiAttivita;
+  }
 
   ngOnInit(): void {
+    this.scheduleService.getSchedule().subscribe(
+      (res) => {
+        this.isLoading = false;
+        this.machineInfo = res;
+        console.log(this.machineInfo)
+      }
+    );
   }
 
 }
+
+
