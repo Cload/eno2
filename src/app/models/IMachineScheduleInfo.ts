@@ -7,11 +7,11 @@
  */
 export interface IMachineScheduleInfo {
 
-    ID : number;
-    Subject : string;
-    StartDate : Date;
-    DueDate : Date;
-    Linea : string;
+    id : number;
+    subject : string;
+    startDate : Date;
+    dueDate : Date;
+    linea : string;
     Type : number;
-    
+    subjecy: string;
 }

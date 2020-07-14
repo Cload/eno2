@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MachineScheduleInfo} from '../../models/MachineScheduleInfo'
+import { IMachineScheduleInfo } from 'src/app/models/IMachineScheduleInfo';
 
 
 /**
@@ -20,8 +20,8 @@ export abstract class IMachineScheduleService {
    * Metodo che ritorna le attività delle macchine.
    *
    * @abstract
-   * @returns {Observable<Array<MachineScheduleInfo>>}
+   * @returns {Observable<Array<IMachineScheduleInfo>>}
    * @memberof IMachineScheduleService
    */
-  abstract getSchedule() : Observable<Array<MachineScheduleInfo>>;
+  abstract getSchedule() : Observable<Array<IMachineScheduleInfo>>;
 }

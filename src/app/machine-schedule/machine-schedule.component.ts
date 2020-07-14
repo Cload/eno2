@@ -16,15 +16,15 @@ export class MachineScheduleComponent implements OnInit {
   constructor(private scheduleService: IMachineScheduleService) { }
   private machineInfo : IMachineScheduleInfo[];
   public isLoading : boolean = true;
-  public currentDate : Date = new Date(2020, 4, 18, 0, 0, 0);
+  public currentDate : Date = new Date(2020, 6, 14, 0, 0, 0);
 
   public get linee() : Linea[] {
     if (!this.machineInfo){
       return undefined;
     }
-    var linee = this.machineInfo.map(i => i.Linea)
+    var linee = this.machineInfo.map(i => i.linea)
     linee = linee.filter(filterUnique);
-    return linee.map(l => ({ id: l, text: `Linea ${l}` }));
+    return linee.map(l => ({ id: l, text: l }));
   }
 
   public get tipiAttivita() : TipoAttivita[] {
