@@ -1,0 +1,45 @@
+<dx-scheduler
+    *ngIf="!isLoading"
+    [dataSource]="machineInfo"
+    [views]='["timelineDay", "timelineWorkWeek", "timelineMonth"]'
+    currentView="timelineDay"
+    [firstDayOfWeek]="0"
+    [startDateExpr]="'startDate'"
+    [endDateExpr]="'dueDate'"
+    [textExpr]="'subject'"
+    [crossScrollingEnabled]="'true'"
+    [startDayHour]="9"
+    [endDayHour]="24"
+    [cellDuration]="60"
+    [groups]="['linea']"
+    [currentDate]="currentDate"
+    [height]="580">
+        <dxi-view type="timelineDay"
+                  [name]="'Giornaliero'"
+                  >
+        </dxi-view>
+        <dxi-view type="timelineWorkWeek"
+        [name]="'Settimanale'"
+        >
+        </dxi-view>
+        <dxi-view type="timelineMonth"
+        [name]="'Mensile'"
+        >
+        </dxi-view>
+        <dxi-view type="timelineMonth"
+        [name]="'2 Mesi'"
+        [intervalCount]="2"
+        >
+        </dxi-view>
+        <dxi-resource
+        fieldExpr="type"
+        [dataSource]="tipiAttivita"
+        [useColorAsDefault]="true"
+        ></dxi-resource>
+        <dxi-resource
+        fieldExpr="linea"
+        [allowMultiple]="false"
+        [dataSource]="linee"
+        label="linea"
+    ></dxi-resource>
+</dx-scheduler>
