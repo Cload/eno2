@@ -5,11 +5,14 @@ import { TipoAttivita} from '../../types/TipoAttivita'
 import { IMachineScheduleService } from '../services/imachine-schedule/imachine-schedule.service';
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
+import { EventSettingsModel, GroupModel, TimelineViewsService} from '@syncfusion/ej2-angular-schedule';
+
 
 @Component({
   selector: 'machine-schedule',
   templateUrl: './machine-schedule.component.html',
-  styleUrls: ['./machine-schedule.component.scss']
+  styleUrls: ['./machine-schedule.component.scss'],
+  providers : [TimelineViewsService]
 })
 export class MachineScheduleComponent implements OnInit {
 
@@ -17,30 +20,47 @@ export class MachineScheduleComponent implements OnInit {
   private machineInfo : IMachineScheduleInfo[];
   public isLoading : boolean = true;
   public currentDate : Date = new Date(2020, 6, 14, 0, 0, 0);
+  public group: GroupModel = {
+    resources: ['Linee']
+};
+  public linee : Linea[];
 
-  public get linee() : Linea[] {
-    if (!this.machineInfo){
-      return undefined;
-    }
-    var linee = this.machineInfo.map(i => i.linea)
-    linee = linee.filter(filterUnique);
-    return linee.map(l => ({ id: l, text: l }));
-  }
-
-  public get tipiAttivita() : TipoAttivita[] {
-    return tipiAttivita;
-  }
-
+  public tipiAttivita : TipoAttivita[] = tipiAttivita;
+  
   ngOnInit(): void {
     this.scheduleService.getSchedule().subscribe(
-      (res) => {
-        this.isLoading = false;
+      (res) => {        
+        res.forEach(r => 
+          {
+            r.color = tipiAttivita.find(t => t.id == r.Type)?.color ?? 'green';
+          })
         this.machineInfo = res;
+        this.eventSettings = {
+          dataSource: this.machineInfo || [],
+          fields: {
+            id: 'id',
+            subject: { name: 'subject' },
+            startTime: { name: 'startDate' },
+            endTime: { name: 'dueDate' },
+            
+          },
+          resourceColorField : "Tipi"
+        }      
+        this.setLinee();
         console.log(this.machineInfo)
+        
+        this.isLoading = false;
+
       }
     );
   }
-
+  public eventSettings: EventSettingsModel;
+  setLinee(){
+    var linee = this.machineInfo.map(i => i.linea)
+    linee = linee.filter(filterUnique);
+    this.linee =  linee.map(l => ({ id: l, text: l }));
+  }
+  
 }
 
 

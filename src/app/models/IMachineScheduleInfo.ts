@@ -13,5 +13,6 @@ export interface IMachineScheduleInfo {
     dueDate : Date;
     linea : string;
     Type : number;
-    subjecy: string;
+    color?: string;
+
 }

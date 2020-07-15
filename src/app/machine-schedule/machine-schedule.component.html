@@ -1,45 +1,36 @@
-<dx-scheduler
-    *ngIf="!isLoading"
-    [dataSource]="machineInfo"
-    [views]='["timelineDay", "timelineWorkWeek", "timelineMonth"]'
-    currentView="timelineDay"
-    [firstDayOfWeek]="0"
-    [startDateExpr]="'startDate'"
-    [endDateExpr]="'dueDate'"
-    [textExpr]="'subject'"
-    [crossScrollingEnabled]="'true'"
-    [startDayHour]="9"
-    [endDayHour]="24"
-    [cellDuration]="60"
-    [groups]="['linea']"
-    [currentDate]="currentDate"
-    [height]="'85vh'">
-        <dxi-view type="timelineDay"
-                  [name]="'Giornaliero'"
-                  >
-        </dxi-view>
-        <dxi-view type="timelineWorkWeek"
-        [name]="'Settimanale'"
-        >
-        </dxi-view>
-        <dxi-view type="timelineMonth"
-        [name]="'Mensile'"
-        >
-        </dxi-view>
-        <dxi-view type="timelineMonth"
-        [name]="'2 Mesi'"
-        [intervalCount]="2"
-        >
-        </dxi-view>
-        <dxi-resource
-        fieldExpr="type"
-        [dataSource]="tipiAttivita"
-        [useColorAsDefault]="true"
-        ></dxi-resource>
-        <dxi-resource
-        fieldExpr="linea"
-        [allowMultiple]="false"
-        [dataSource]="linee"
-        label="linea"
-    ></dxi-resource>
-</dx-scheduler>
+<ejs-schedule
+*ngIf="!isLoading"
+cssClass='timeline-resource-grouping' 
+ width='100%' 
+ height='550px' 
+ [selectedDate]='currentDate'
+ [group]="group"
+ colorField='color'
+[eventSettings]='eventSettings'>
+<e-resources>
+    <e-resource 
+    field='linea'
+    title='Linee'
+    [dataSource]='linee' 
+    [allowMultiple]='true' 
+    name='Linee'
+    textField='text' 
+    idField='id'  >
+    </e-resource>
+    <e-resource 
+    field='type'
+    title='Types'
+    [dataSource]='tipiAttivita' 
+    [allowMultiple]='true' 
+    name='Tipi'
+    colorField='color'
+    idField='id'  >
+    </e-resource>
+</e-resources>
+<e-views>
+    <e-view option="TimelineDay"></e-view>
+    <e-view option="TimelineWeek"></e-view>
+    <e-view option="TimelineWorkWeek"></e-view>
+    <e-view option="TimelineMonth"></e-view>
+</e-views>
+</ejs-schedule>
