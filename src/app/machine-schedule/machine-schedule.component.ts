@@ -5,14 +5,14 @@ import { TipoAttivita} from '../../types/TipoAttivita'
 import { IMachineScheduleService } from '../services/imachine-schedule/imachine-schedule.service';
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
-import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs} from '@syncfusion/ej2-angular-schedule';
+import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService,} from '@syncfusion/ej2-angular-schedule';
 
 
 @Component({
   selector: 'machine-schedule',
   templateUrl: './machine-schedule.component.html',
   styleUrls: ['./machine-schedule.component.scss'],
-  providers : [TimelineViewsService]
+  providers : [TimelineViewsService, DayService, TimelineMonthService]
 })
 export class MachineScheduleComponent implements OnInit {
 
@@ -21,7 +21,8 @@ export class MachineScheduleComponent implements OnInit {
   public isLoading : boolean = true;
   public currentDate : Date = new Date(2020, 6, 16, 0, 0, 0);
   public group: GroupModel = {
-    resources: ['Linee']
+    resources: ['Linee'],
+    enableCompactView : false
 };
   public linee : Linea[];
 
