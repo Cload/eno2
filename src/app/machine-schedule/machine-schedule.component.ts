@@ -5,7 +5,7 @@ import { TipoAttivita} from '../../types/TipoAttivita'
 import { IMachineScheduleService } from '../services/imachine-schedule/imachine-schedule.service';
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
-import { EventSettingsModel, GroupModel, TimelineViewsService} from '@syncfusion/ej2-angular-schedule';
+import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs} from '@syncfusion/ej2-angular-schedule';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class MachineScheduleComponent implements OnInit {
   constructor(private scheduleService: IMachineScheduleService) { }
   private machineInfo : IMachineScheduleInfo[];
   public isLoading : boolean = true;
-  public currentDate : Date = new Date(2020, 6, 14, 0, 0, 0);
+  public currentDate : Date = new Date(2020, 6, 16, 0, 0, 0);
   public group: GroupModel = {
     resources: ['Linee']
 };
@@ -59,6 +59,16 @@ export class MachineScheduleComponent implements OnInit {
     var linee = this.machineInfo.map(i => i.linea)
     linee = linee.filter(filterUnique);
     this.linee =  linee.map(l => ({ id: l, text: l }));
+  }
+
+  applyStyle(args: EventRenderedArgs): void {
+    let info = args.data;
+    console.log(info.type)
+    let color = tipiAttivita.find(t => t.id == info.type).color ?? 'green';
+    if ( info.type == 2 ||info.type == 3 || info.type ==  4){
+      args.element.style.border = "2px solid red"
+    }
+    args.element.style.backgroundColor = color;
   }
   
 }

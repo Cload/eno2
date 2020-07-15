@@ -6,6 +6,7 @@ cssClass='timeline-resource-grouping'
  [selectedDate]='currentDate'
  [group]="group"
  colorField='color'
+ (eventRendered)="applyStyle($event)" 
 [eventSettings]='eventSettings'>
 <e-resources>
     <e-resource 
