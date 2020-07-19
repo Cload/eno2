@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IMachineScheduleInfo } from '../models/IMachineScheduleInfo';
 import { Linea } from '../../types/Linea'
 import { TipoAttivita} from '../../types/TipoAttivita'
 import { IMachineScheduleService } from '../services/imachine-schedule/imachine-schedule.service';
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
-import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService,} from '@syncfusion/ej2-angular-schedule';
+import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent,} from '@syncfusion/ej2-angular-schedule';
 
 
 @Component({
@@ -17,6 +17,8 @@ import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs
 export class MachineScheduleComponent implements OnInit {
 
   constructor(private scheduleService: IMachineScheduleService) { }
+  @ViewChild('machineScheduleRef')
+  private machineScheduler : ScheduleComponent;
   private machineInfo : IMachineScheduleInfo[];
   public isLoading : boolean = true;
   public currentDate : Date = new Date(2020, 6, 16, 0, 0, 0);
@@ -64,14 +66,29 @@ export class MachineScheduleComponent implements OnInit {
 
   applyStyle(args: EventRenderedArgs): void {
     let info = args.data;
-    console.log(info.type)
     let color = tipiAttivita.find(t => t.id == info.type).color ?? 'green';
     if ( info.type == 2 ||info.type == 3 || info.type ==  4){
       args.element.style.border = "2px solid red"
     }
     args.element.style.backgroundColor = color;
   }
-  
+
+  public get timeScaleOptions(): TimeScaleModel 
+  {
+    return {
+      enable : true,
+      interval: 60,
+    }
+  };
+
+  public  weekTimeScaleOptions: TimeScaleModel =
+  {
+    enable : true,
+    interval: 240, 
+  };
+
+
+
 }
 
 
