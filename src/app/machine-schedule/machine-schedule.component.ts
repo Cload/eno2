@@ -27,7 +27,7 @@ export class MachineScheduleComponent implements OnInit {
     enableCompactView : false
 };
   public linee : Linea[];
-
+  public locale : string = "it";
   public tipiAttivita : TipoAttivita[] = tipiAttivita;
   
   ngOnInit(): void {
