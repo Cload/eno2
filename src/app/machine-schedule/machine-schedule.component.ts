@@ -69,7 +69,7 @@ export class MachineScheduleComponent implements OnInit {
     let info = args.data;
     let color = tipiAttivita.find(t => t.id == info.type).color ?? 'green';
     if ( info.type == 2 ||info.type == 3 || info.type ==  4){
-      args.element.style.border = "2px solid red"
+      args.element.style.border = "6px solid red"
     }
     args.element.style.backgroundColor = color;
   }

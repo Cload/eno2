@@ -13,3 +13,10 @@
 @import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-angular-schedule/styles/material.css';
+
+
+// Imposta il css per poter usare display flex
+html{
+    height: 100%;
+    display: flex;
+}
