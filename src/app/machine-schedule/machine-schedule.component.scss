@@ -1,0 +1,17 @@
+
+.borderblink{    
+    border-width: 6px !important;
+    border-color: red($color: #000000);
+    border-style: solid;
+    -webkit-animation: borderBlink 1s step-end infinite;    
+    animation: borderBlink 1s step-end infinite;    
+}
+
+@keyframes borderBlink {    
+    from, to {    
+        border-color: transparent;    
+    }    
+    50% {    
+        border-color: red ;    
+    }    
+}  

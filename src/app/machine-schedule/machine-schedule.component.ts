@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { IMachineScheduleInfo } from '../models/IMachineScheduleInfo';
 import { Linea } from '../../types/Linea'
 import { TipoAttivita} from '../../types/TipoAttivita'
@@ -13,7 +13,8 @@ import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs
   selector: 'machine-schedule',
   templateUrl: './machine-schedule.component.html',
   styleUrls: ['./machine-schedule.component.scss'],
-  providers : [TimelineViewsService, DayService, TimelineMonthService]
+  providers : [TimelineViewsService, DayService, TimelineMonthService],
+  encapsulation: ViewEncapsulation.None
 })
 export class MachineScheduleComponent implements OnInit {
 
@@ -69,7 +70,7 @@ export class MachineScheduleComponent implements OnInit {
     let info = args.data;
     let color = tipiAttivita.find(t => t.id == info.type).color ?? 'green';
     if ( info.type == 2 ||info.type == 3 || info.type ==  4){
-      args.element.style.border = "6px solid red"
+      args.element.classList.add('borderblink');
     }
     args.element.style.backgroundColor = color;
   }
