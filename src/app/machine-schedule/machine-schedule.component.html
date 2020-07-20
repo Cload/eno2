@@ -1,4 +1,5 @@
 <ejs-schedule
+style="max-height: 100%;"
  #machineScheduleRef
  *ngIf="!isLoading"
  cssClass='timeline-resource-grouping' 
@@ -8,6 +9,7 @@
  [selectedDate]='currentDate'
  [group]="group"
  colorField='color'
+ startHour='06:00'
  (eventRendered)="applyStyle($event)" 
 [eventSettings]='eventSettings'>
 <e-resources>

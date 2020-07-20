@@ -5,6 +5,7 @@ import { TipoAttivita} from '../../types/TipoAttivita'
 import { IMachineScheduleService } from '../services/imachine-schedule/imachine-schedule.service';
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
+import { getMonday } from '../../Utils/DisplayUtils'
 import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent,} from '@syncfusion/ej2-angular-schedule';
 
 
@@ -21,7 +22,7 @@ export class MachineScheduleComponent implements OnInit {
   private machineScheduler : ScheduleComponent;
   private machineInfo : IMachineScheduleInfo[];
   public isLoading : boolean = true;
-  public currentDate : Date = new Date(2020, 6, 16, 0, 0, 0);
+  public currentDate : Date = getMonday(new Date());
   public group: GroupModel = {
     resources: ['Linee'],
     enableCompactView : false
