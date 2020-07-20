@@ -6,6 +6,7 @@ import { IMachineScheduleService } from '../services/imachine-schedule/imachine-
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
 import { getMonday } from '../../Utils/DisplayUtils'
+import * as moment from 'moment'
 import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent,} from '@syncfusion/ej2-angular-schedule';
 
 
@@ -18,12 +19,16 @@ import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs
 })
 export class MachineScheduleComponent implements OnInit {
 
-  constructor(private scheduleService: IMachineScheduleService) { }
+  constructor(private scheduleService: IMachineScheduleService) 
+  { 
+   
+  }
+
   @ViewChild('machineScheduleRef')
   private machineScheduler : ScheduleComponent;
   private machineInfo : IMachineScheduleInfo[];
   public isLoading : boolean = true;
-  public currentDate : Date = getMonday(new Date());
+  public currentDate : Date = this.getInitialDate();
   public group: GroupModel = {
     resources: ['Linee'],
     enableCompactView : false
@@ -52,14 +57,16 @@ export class MachineScheduleComponent implements OnInit {
           resourceColorField : "Tipi"
         }      
         this.setLinee();
-        console.log(this.machineInfo)
-        
         this.isLoading = false;
-
       }
     );
   }
   public eventSettings: EventSettingsModel;
+  getInitialDate(): Date{
+    //Inizializza il calendario il lunedì alle 00:00
+    let date : Date = getMonday(new Date());
+    return date;
+  }
   setLinee(){
     var linee = this.machineInfo.map(i => i.linea)
     linee = linee.filter(filterUnique);
@@ -86,7 +93,7 @@ export class MachineScheduleComponent implements OnInit {
   public  weekTimeScaleOptions: TimeScaleModel =
   {
     enable : true,
-    interval: 240, 
+    interval: 480, 
   };
 
 
