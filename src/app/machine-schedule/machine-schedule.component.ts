@@ -7,7 +7,7 @@ import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
 import { getMonday } from '../../Utils/DisplayUtils'
 import * as moment from 'moment'
-import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent,} from '@syncfusion/ej2-angular-schedule';
+import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent, HeaderRowsModel, HoverEventArgs,} from '@syncfusion/ej2-angular-schedule';
 
 
 @Component({
@@ -54,7 +54,8 @@ export class MachineScheduleComponent implements OnInit {
             endTime: { name: 'dueDate' },
             
           },
-          resourceColorField : "Tipi"
+          resourceColorField : "Tipi",
+          enableTooltip : true
         }      
         this.setLinee();
         this.isLoading = false;
