@@ -94,7 +94,7 @@ export class MachineScheduleComponent implements OnInit {
   public  weekTimeScaleOptions: TimeScaleModel =
   {
     enable : true,
-    interval: 480, 
+    interval: 120, 
   };
 
 
