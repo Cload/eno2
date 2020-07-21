@@ -5,7 +5,7 @@ import { TipoAttivita} from '../../types/TipoAttivita'
 import { IMachineScheduleService } from '../services/imachine-schedule/imachine-schedule.service';
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
-import { getMonday } from '../../Utils/DisplayUtils'
+import { getMonday, getBlinkingAnimation } from '../../Utils/DisplayUtils'
 import * as moment from 'moment'
 import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent, HeaderRowsModel, HoverEventArgs,} from '@syncfusion/ej2-angular-schedule';
 
@@ -75,12 +75,21 @@ export class MachineScheduleComponent implements OnInit {
   }
 
   applyStyle(args: EventRenderedArgs): void {
-    let info = args.data;
-    let color = tipiAttivita.find(t => t.id == info.type).color ?? 'green';
-    if ( info.type == 2 ||info.type == 3 || info.type ==  4){
-      args.element.classList.add('borderblink');
+    let data = args.data;
+    let styleInfo = tipiAttivita.find(t => t.id == data.type);
+    if (styleInfo ==  undefined){
+      return;
     }
-    args.element.style.backgroundColor = color;
+    args.element.style.backgroundColor = styleInfo.color;
+    if (styleInfo.hasBorder){
+      args.element.style.setProperty("border-width", "5px", "important");
+      args.element.style.borderColor = styleInfo.borderColor;
+    }
+    if (styleInfo.shouldBorderBlink)
+    {
+      args.element.animate(getBlinkingAnimation(styleInfo.borderColor), {duration : 800, iterations: Infinity});
+    }
+   
   }
 
   public get timeScaleOptions(): TimeScaleModel 
