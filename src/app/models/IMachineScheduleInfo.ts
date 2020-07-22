@@ -13,6 +13,8 @@ export interface IMachineScheduleInfo {
     dueDate : Date;
     linea : string;
     Type : number;
-    color?: string;
+    shippingDate? : Date;
+    logisticDate? : Date;
+
 
 }

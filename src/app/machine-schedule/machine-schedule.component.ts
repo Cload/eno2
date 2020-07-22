@@ -39,10 +39,6 @@ export class MachineScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.scheduleService.getSchedule().subscribe(
       (res) => {        
-        res.forEach(r => 
-          {
-            r.color = tipiAttivita.find(t => t.id == r.Type)?.color ?? 'green';
-          })
         this.machineInfo = res;
         this.eventSettings = {
           dataSource: this.machineInfo || [],
