@@ -13,6 +13,7 @@ style="max-height: 100%;"
  colorField='color'
  (eventRendered)="applyStyle($event)" 
  [rowAutoHeight]=true
+ (actionComplete)="actionComplete($event)"
 [eventSettings]='eventSettings'>
 <e-resources>
     <e-resource 

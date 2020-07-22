@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Inject } from '@angular/core';
 import { IMachineScheduleInfo } from '../models/IMachineScheduleInfo';
 import { Linea } from '../../types/Linea'
 import { TipoAttivita} from '../../types/TipoAttivita'
@@ -6,8 +6,7 @@ import { IMachineScheduleService } from '../services/imachine-schedule/imachine-
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
 import { getMonday, getBlinkingAnimation } from '../../Utils/DisplayUtils'
-import * as moment from 'moment'
-import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent, HeaderRowsModel, HoverEventArgs,} from '@syncfusion/ej2-angular-schedule';
+import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent, HeaderRowsModel, HoverEventArgs, ActionEventArgs,} from '@syncfusion/ej2-angular-schedule';
 
 
 @Component({
@@ -89,7 +88,35 @@ export class MachineScheduleComponent implements OnInit {
     {
       args.element.animate(getBlinkingAnimation(styleInfo.borderColor), {duration : 800, iterations: Infinity});
     }
+  }
+
+  actionComplete(args : ActionEventArgs){
+    let scheduleElement: HTMLElement = this.machineScheduler.element;
+    if (!scheduleElement){
+      return;
+    }
+    let template : string = `
+    <div id="infotoolbar" style="display:flex; width:100% !important;">
+      <div>
+        <span>Cambi settimanali: 200</span>
+      </div>
+      <div>
+        <span>Cambi non assegnati: 50</span>
+      </div>
+      <div>
+        <span>Ordini on time: 58</span>
+      </div>
+      <div>
+        <span>Ordini non on time : 32</span>
+      </div>
+    </div>
+    `
+    let element : HTMLElement =  new DOMParser().parseFromString(template, 'text/xml').firstElementChild as HTMLElement
+    let toolbar : HTMLElement  = scheduleElement.querySelector(".e-schedule-toolbar-container");
+    toolbar.appendChild(element);
+    console.log(element);
    
+
   }
 
   public get timeScaleOptions(): TimeScaleModel 
