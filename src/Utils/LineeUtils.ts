@@ -14,8 +14,8 @@ export const tipiAttivita : Array<TipoAttivita> =
        {id :10, text:  "Produzione	in ritardo consegna	non sicura", color: "#FF8B00", hasBorder: true, borderColor: "#FF5757", shouldBorderBlink: false},
        {id :11, text:  "Attrezzisti OK", color: "#8DC73F", hasBorder: false, borderColor: undefined, shouldBorderBlink: false},
        {id :12, text:  "Attrezzisti non bastano", color: "#FF5757", hasBorder: false, borderColor: undefined, shouldBorderBlink: false},
-       {id :13, text:  "", color: "#f96610", hasBorder: false, borderColor: undefined, shouldBorderBlink: false},
-       {id :14, text:  "", color: "#85ce23", hasBorder: false, borderColor: undefined, shouldBorderBlink: false},
+       {id :13, text:  "", color: "#e67d00", hasBorder: false, borderColor: undefined, shouldBorderBlink: false},
+       {id :14, text:  "", color: "#b36100", hasBorder: false, borderColor: undefined, shouldBorderBlink: false},
        {id :15, text:  "", color: "#70c078", hasBorder: false, borderColor: undefined, shouldBorderBlink: false},
        {id :16, text:  "", color: "#70c078", hasBorder: false, borderColor: undefined, shouldBorderBlink: false},
     ]
