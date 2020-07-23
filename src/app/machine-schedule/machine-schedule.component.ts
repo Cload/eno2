@@ -5,8 +5,9 @@ import { TipoAttivita} from '../../types/TipoAttivita'
 import { IMachineScheduleService } from '../services/imachine-schedule/imachine-schedule.service';
 import { filterUnique } from '../../Utils/ArrayUtils'
 import { tipiAttivita } from '../../Utils/LineeUtils'
-import { getMonday, getBlinkingAnimation } from '../../Utils/DisplayUtils'
+import { getMonday, getBlinkingAnimation, buildAppointmentWithPins } from '../../Utils/DisplayUtils'
 import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs, DayService, TimelineMonthService, TimeScaleModel, ScheduleComponent, HeaderRowsModel, HoverEventArgs, ActionEventArgs,} from '@syncfusion/ej2-angular-schedule';
+import { DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -18,7 +19,8 @@ import { EventSettingsModel, GroupModel, TimelineViewsService, EventRenderedArgs
 })
 export class MachineScheduleComponent implements OnInit {
 
-  constructor(private scheduleService: IMachineScheduleService) 
+  constructor(private scheduleService: IMachineScheduleService, 
+   @Inject(DOCUMENT) private document: Document) 
   { 
    
   }
@@ -84,11 +86,17 @@ export class MachineScheduleComponent implements OnInit {
     {
       args.element.animate(getBlinkingAnimation(styleInfo.borderColor), {duration : 800, iterations: Infinity});
     }
+    buildAppointmentWithPins(args, this.document);
   }
 
   actionComplete(args : ActionEventArgs){
     let scheduleElement: HTMLElement = this.machineScheduler.element;
     if (!scheduleElement){
+      return;
+    }
+    if (scheduleElement.querySelector("#infotoolbar"))
+    {
+      // è gia stata aggiunta la toolbar
       return;
     }
     let template : string = `
