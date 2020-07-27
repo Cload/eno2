@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 export class MachineScheduleService extends IMachineScheduleService {
   
   getSchedule(): Observable<Array<IMachineScheduleInfo>> {
-    var data = this.http.get<Array<IMachineScheduleInfo>>("https://app.anemone.it/monitorcalendar/api/events")
+    var data = this.http.get<Array<IMachineScheduleInfo>>("https://app.anemone.it/monitorcalendar/api/events2")
     return data;
   }
 
